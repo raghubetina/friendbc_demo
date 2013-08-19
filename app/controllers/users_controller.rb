@@ -1,5 +1,3 @@
-require 'open-uri'
-
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :current_user_must_be_user, only: [:show, :edit, :update, :destroy]
@@ -19,16 +17,7 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    begin
-      url = "https://graph.facebook.com/me/home?access_token=#{@user.facebook_access_token}&limit=200"
-
-      raw_response = open(url).read
-      parsed_response = JSON.parse(raw_response)
-      @posts = parsed_response['data'].select { |p| p['type'] == 'video' }
-    rescue
-      flash.now[:error] = 'Please re-authorize Facebook access.'
-      @posts = []
-    end
+    @posts = @user.posts
   end
 
   # GET /users/new
