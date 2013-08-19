@@ -1,12 +1,12 @@
 <div class="media">
   <div class="pull-left">
-    <%= image_tag "https://graph.facebook.com/#{comment['from']['id']}/picture", class: 'media-object' %>
+    <%= image_tag "https://graph.facebook.com/#{comment.commenter_facebook_id}/picture", class: 'media-object' %>
   </div>
   <div class="media-body">
     <h4 class="media-heading">
-      <%= comment['from']['name'] %>
-      <small><%= time_ago_in_words(comment['created_time']) %> ago</small>
+      <%= comment.commenter_name %>
+      <small><%= time_ago_in_words(comment.created_time) %> ago</small>
     </h4>
-    <p><%= comment['message'] %></p>
+    <p><%= comment.message %></p>
   </div>
 </div>
