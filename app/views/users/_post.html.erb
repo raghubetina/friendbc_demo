@@ -1,16 +1,16 @@
 <li class="media">
   <div class="pull-left">
-    <%= image_tag "https://graph.facebook.com/#{post['from']['id']}/picture", class: 'media-object' %>
+    <%= image_tag "https://graph.facebook.com/#{post.sharer_facebook_id}/picture", class: 'media-object' %>
   </div>
   <div class="media-body">
     <h2 class="media-heading">
-      <%= post['from']['name'] %>
-      <small><%= time_ago_in_words(post['created_time']) %> ago</small>
+      <%= post.sharer_name %>
+      <small><%= time_ago_in_words(post.created_time) %> ago</small>
     </h2>
-    <p class="lead"><%= post['message'] %></p>
-    <%= display_video(post['link']) %>
-    <% if post['comments'].present? %>
-      <% post['comments']['data'].each do |the_comment| %>
+    <p class="lead"><%= post.message %></p>
+    <%= display_video(post.link) %>
+    <% if post.comments.any? %>
+      <% post.comments.each do |the_comment| %>
         <%= render 'comment', comment: the_comment %>
       <% end %>
     <% end %>
