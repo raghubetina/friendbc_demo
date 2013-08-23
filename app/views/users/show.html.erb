@@ -4,7 +4,7 @@
     <small>
       <%= link_to '<i class="icon-edit"></i>'.html_safe, edit_user_url(@user) %>
       <%= link_to '<i class="icon-trash"></i>'.html_safe, @user, method: 'delete', data: { confirm: "Do you really want to delete this user?" } %>
-      <%= link_to "Authorize Facebook", "https://www.facebook.com/dialog/oauth?client_id=149705581903855&redirect_uri=http://localhost:3000/auth/facebook&scope=read_stream" %>
+      <%= link_to "Authorize Facebook", "https://www.facebook.com/dialog/oauth?client_id=#{ENV['FRIENDBC_APP_ID']}&redirect_uri=http://localhost:3000/auth/facebook&scope=read_stream" %>
     </small>
   </h1>
 </div>
