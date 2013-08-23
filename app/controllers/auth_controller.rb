@@ -10,5 +10,10 @@ class AuthController < ApplicationController
 
     result = open(access_token_endpoint).read
     parsed_result = Rack::Utils.parse_query(result)
+
+    current_user.facebook_access_token = parsed_result["access_token"]
+    current_user.save
+
+    redirect_to user_url(current_user)
   end
 end
