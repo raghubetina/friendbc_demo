@@ -3,7 +3,32 @@ require 'open-uri'
 namespace :api do
   desc "Fetch Twitter API updates for all users"
   task twitter: :environment do
-    # TODO write this logic
+    User.find_each do |user|
+      client = Twitter::REST::Client.new do |config|
+        config.consumer_key = 'okpmnwPRavYpZRYz2qBA'
+        config.consumer_secret = 'QSuS4quZ6d2iyXqIjVlhdOgjnon5HMIBat0ZaLpJk'
+        config.access_token = user.twitter_access_key
+        config.access_token_secret = user.twitter_access_secret
+      end
+
+      client.home_timeline(count: 200).each do |tweet|
+        if tweet.urls.any?
+          tweet.urls.map(&:expanded_url).each do |url|
+            if url.host.include?('youtube.com') || url.host.include?('vimeo.com')
+              post = Post.new
+              post.sharer_name = tweet.user.name
+              post.sharer_facebook_id = tweet.user.id
+              post.message = tweet.text
+              post.link = url.to_s
+              post.created_time = tweet.created_at
+              post.post_facebook_id = tweet.id
+              post.user_id = user.id
+              post.save
+            end
+          end
+        end
+      end
+    end
   end
 
   desc "Fetch Facebook API updates for all users"

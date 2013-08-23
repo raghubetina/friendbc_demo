@@ -16,4 +16,12 @@ class AuthController < ApplicationController
 
     redirect_to user_url(current_user)
   end
+
+  def twitter
+    current_user.twitter_access_key = request.env['omniauth.auth'].extra.access_token.token
+    current_user.twitter_access_secret = request.env['omniauth.auth'].extra.access_token.secret
+    current_user.save
+
+    redirect_to root_url
+  end
 end

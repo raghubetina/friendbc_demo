@@ -9,6 +9,8 @@ gem 'whenever'
 
 gem 'omniauth-twitter'
 
+gem 'twitter', :git => 'https://github.com/sferik/twitter.git'
+
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 
