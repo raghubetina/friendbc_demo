@@ -4,9 +4,6 @@ class AuthController < ApplicationController
     app_secret = "9892ab887a2c08477ac8536c457a45e8"
     redirect_uri = "http://localhost:3000/auth/facebook"
 
-    # Write code here to exchange the code and our app secret for the access token
-    # Save the access token to the appropriate User row
-    # Redirect back to the user's show page
-    # https://developers.facebook.com/docs/facebook-login/login-flow-for-web-no-jssdk/#confirm
+    access_token_endpoint = "https://graph.facebook.com/oauth/access_token?client_id=#{app_id}&redirect_uri=#{redirect_uri}&client_secret=#{app_secret}&code=#{params[:code]}"
   end
 end
